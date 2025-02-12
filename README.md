@@ -49,7 +49,6 @@ Contributions are welcome. If you would like to improve the project, feel free t
 This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-- GitHub: [your-username](https://github.com/your-username)
-- LinkedIn: [your-profile](https://linkedin.com/in/your-profile)
-- Email: your-email@example.com
+- LinkedIn: [your-profile](www.linkedin.com/in/ricardo-lugo-859b60217)
+- Email: portdevwork@gmail.com
 
