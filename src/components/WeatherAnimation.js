@@ -11,17 +11,22 @@ const WeatherAnimation = ({ weather }) => {
       let animationFile = null;
 
       if (weather.toLowerCase().includes("cloud")) {
-        animationFile = "/assets/clouds.json"; // ✅ Fetch from public/assets/
+        animationFile = "/assets/clouds.json"; // Absolute path to public folder
+      } else if (weather.toLowerCase().includes("rain")) {
+        animationFile = "/assets/rain.json";
+      } else if (weather.toLowerCase().includes("snow")) {
+        animationFile = "/assets/snow.json";
       }
+
+      console.log("Fetching animation from:", animationFile);
 
       if (animationFile) {
         try {
           const response = await fetch(animationFile);
-          if (!response.ok) throw new Error("Failed to load animation");
           const json = await response.json();
           setAnimationData(json);
         } catch (error) {
-          console.error("Error loading animation:", error);
+          console.error("Error loading animation JSON:", error);
         }
       }
     };
