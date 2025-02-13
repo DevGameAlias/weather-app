@@ -18,8 +18,6 @@ const WeatherAnimation = ({ weather }) => {
         animationFile = "/assets/snow.json";
       }
 
-      console.log("Fetching animation from:", animationFile);
-
       if (animationFile) {
         try {
           const response = await fetch(animationFile);
@@ -34,9 +32,7 @@ const WeatherAnimation = ({ weather }) => {
     loadAnimation();
   }, [weather]);
 
-  return animationData ? (
-    <Lottie animationData={animationData} className="w-48 h-48" />
-  ) : null;
+  return animationData ? <Lottie animationData={animationData} className="w-48 h-48" /> : null;
 };
 
 export default WeatherAnimation;

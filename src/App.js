@@ -9,7 +9,7 @@ import snowData from "./assets/snow.json";
 import cloudData from "./assets/clouds.json";
 
 export default function App() {
-  /** 🌟 State Management */
+  /** State Management */
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
@@ -22,34 +22,29 @@ export default function App() {
   const [snowAnimation, setSnowAnimation] = useState(null);
   const [cloudAnimation, setCloudAnimation] = useState(null);
 
-  /** 🌟 Fetch Weather Data */
+  /** Fetch Weather Data */
   const handleSearch = async () => {
     if (!city) return;
-    console.log("Fetching weather for:", city);
 
     const weather = await fetchWeather(city, unit);
     const forecast = await fetchFiveDayForecast(city, unit);
 
     if (weather) {
-      console.log("Weather Data:", weather);
       setWeatherCondition(weather.weather[0].main.toLowerCase());
     }
-    if (forecast) console.log("Forecast Data:", forecast);
-
-    setWeatherData(weather);
+    if (forecast) setWeatherData(weather);
     setForecastData(forecast);
     setCitySuggestions([]);
   };
 
-  /** 🌟 Fetch Animations on Mount */
+  /** Fetch Animations on Mount */
   useEffect(() => {
-    console.log("Fetching animations...");
     setRainAnimation(rainData);
     setSnowAnimation(snowData);
     setCloudAnimation(cloudData);
   }, []);
 
-  /** 🌟 Handle City Input Change */
+  /** Handle City Input Change */
   const debounceTimeout = useRef(null);
   const handleCityInputChange = (e) => {
     const input = e.target.value;
@@ -76,21 +71,21 @@ export default function App() {
     }, 300);
   };
 
-  /** 🌟 Handle Enter Key in Input */
+  /** Handle Enter Key in Input */
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
 
-  /** 🌟 Handle Click on Suggested City */
+  /** Handle Click on Suggested City */
   const handleCitySelection = (selectedCity) => {
     setCity(selectedCity);
     setCitySuggestions([]);
     handleSearch();
   };
 
-  /** 🌟 Toggle Temperature Unit */
+  /** Toggle Temperature Unit */
   const toggleUnit = () => {
     setUnit((prevUnit) => (prevUnit === "metric" ? "imperial" : "metric"));
     if (city) {
@@ -99,7 +94,7 @@ export default function App() {
     }
   };
 
-  /** 🌟 Dynamic Background Based on Weather */
+  /** Dynamic Background Based on Weather */
   const getBackgroundClass = () => {
     if (weatherCondition.includes("clear")) return "bg-gradient-to-b from-sky-400 to-sky-200";
     if (weatherCondition.includes("rain")) return "bg-gradient-to-b from-gray-700 to-gray-900";
@@ -110,11 +105,11 @@ export default function App() {
 
   return (
     <div className={`relative flex flex-col items-center justify-center min-h-screen text-white space-y-6 px-4 ${getBackgroundClass()}`}>
-      {/* 🌧️🌨️ Weather Animations (Always Behind UI) */}
+      {/* Weather Animations (Always Behind UI) */}
       {weatherCondition.includes("rain") && <Lottie animationData={rainAnimation} className="absolute inset-0 w-full h-full opacity-50 z-0" />}
       {weatherCondition.includes("snow") && <Lottie animationData={snowAnimation} className="absolute inset-0 w-full h-full opacity-60 z-0" />}
 
-      {/* ☁️ Extra Clouds for Cloudy Days */}
+      {/* Extra Clouds for Cloudy Days */}
       {weatherCondition.includes("cloud") && (
         <>
           <Lottie animationData={cloudAnimation} className="absolute top-5 left-15 w-[350px] opacity-80 animate-float" />
@@ -128,7 +123,7 @@ export default function App() {
         </>
       )}
 
-      {/* 🔍 Search & Buttons (Ensuring they're above animations) */}
+      {/* Search & Buttons (Ensuring they're above animations) */}
       <div className="relative z-20 flex items-center space-x-2">
         <input type="text" placeholder="Enter city name" value={city} onChange={handleCityInputChange} onKeyDown={handleKeyDown} className="p-2 text-black rounded-md" />
 
@@ -141,7 +136,7 @@ export default function App() {
         </button>
       </div>
 
-      {/* 📍 City Name & Current Temperature */}
+      {/* City Name & Current Temperature */}
       {weatherData && (
         <div className="mt-6 text-center z-10">
           <h2 className="text-4xl font-semibold">{weatherData.name}</h2>
@@ -152,7 +147,7 @@ export default function App() {
         </div>
       )}
 
-      {/* 📅 5-Day Forecast Cards */}
+      {/* 5-Day Forecast Cards */}
       {forecastData && (
         <div className="grid grid-cols-5 gap-4 mt-6 z-10">
           {forecastData.map(([date, info]) => (
